@@ -21,7 +21,7 @@ export const assetService = {
    * This endpoint supports filtering, sorting, and pagination
    * The token will be automatically added to the request header
    */
-  getAssets: async (params?: {
+getAssets: async (params?: {
     base?: string;
     type?: string;
     name?: string;
@@ -29,6 +29,7 @@ export const assetService = {
     sortOrder?: 'asc' | 'desc';
     limit?: number;
     skip?: number;
+    status?: string;   // Add this line
   }): Promise<AssetResponse> => {
     return get<AssetResponse>('/assets', { params });
   },
