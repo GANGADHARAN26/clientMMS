@@ -256,9 +256,11 @@ onSubmit: async (values) => {
                         name="quantity"
                         id="quantity"
                         min="1"
-                        max={selectedAsset?.availableQuantity || 1}
+                        max={selectedAsset?.available || 1}
                         className={`form-input ${
-                          formik.touched.quantity && formik.errors.quantity ? 'border-red-500' : ''
+                          formik.touched.quantity && formik.errors.quantity
+                            ? "border-red-500"
+                            : ""
                         }`}
                         value={formik.values.quantity}
                         onChange={formik.handleChange}
