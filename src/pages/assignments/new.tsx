@@ -109,30 +109,37 @@ const NewAssignmentPage = () => {
       notes: '',
     },
     validationSchema: AssignmentSchema,
-    onSubmit: async (values) => {
-      try {
-        setIsSubmitting(true);
-        
-        // Create the assignment
-        const newAssignment = await assignmentService.createAssignment(values);
-        
-        // Add notification
-        addNotification({
-          type: 'success',
-          title: 'Assignment Created',
-          message: `${newAssignment.quantity} ${newAssignment.assetName} assigned to ${newAssignment.assignedTo.name}.`
-        });
-        
-        toast.success('Assignment created successfully');
-        router.push(`/assignments/${newAssignment._id}`);
-        
-      } catch (error: any) {
-        console.error('Error creating assignment:', error);
-        toast.error(error.response?.data?.error || 'Failed to create assignment');
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
+onSubmit: async (values) => {
+  try {
+    setIsSubmitting(true);
+
+    // Ensure asset is a string
+    const assetValue = typeof values.asset === 'string' ? values.asset : values.asset[0];
+
+    // Create the assignment
+    const newAssignment = await assignmentService.createAssignment({
+      ...values,
+      asset: assetValue,
+    });
+
+    // Add notification
+    addNotification({
+      type: 'success',
+      title: 'Assignment Created',
+      message: `${newAssignment.quantity} ${newAssignment.assetName} assigned to ${newAssignment.assignedTo.name}.`
+    });
+
+    toast.success('Assignment created successfully');
+    router.push(`/assignments/${newAssignment._id}`);
+
+  } catch (error: any) {
+    console.error('Error creating assignment:', error);
+    toast.error(error.response?.data?.error || 'Failed to create assignment');
+  } finally {
+    setIsSubmitting(false);
+  }
+},
+
   });
 
   // Update selected asset when asset changes
