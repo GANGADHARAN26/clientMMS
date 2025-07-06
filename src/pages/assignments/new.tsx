@@ -202,11 +202,12 @@ onSubmit: async (values) => {
                         disabled={!!assetId}
                       >
                         <option value="">Select an asset</option>
-                        {availableAssets.map((asset) => (
-                          <option key={asset._id} value={asset._id}>
-                            {asset.name} ({asset.type}) - {asset.availableQuantity} available
-                          </option>
-                        ))}
+                     {availableAssets.map((asset) => (
+  <option key={asset._id} value={asset._id}>
+    {asset.name} ({asset.type}) - {asset.available} available
+  </option>
+))}
+
                       </select>
                       {formik.touched.asset && formik.errors.asset && (
                         <p className="mt-2 text-sm text-red-600">{formik.errors.asset}</p>
