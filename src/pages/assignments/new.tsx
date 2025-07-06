@@ -266,11 +266,12 @@ onSubmit: async (values) => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
-                      {selectedAsset && (
-                        <p className="mt-1 text-xs text-gray-500">
-                          {selectedAsset.availableQuantity} available
-                        </p>
-                      )}
+                    {selectedAsset && (
+  <p className="mt-1 text-xs text-gray-500">
+    {selectedAsset.available} available
+  </p>
+)}
+
                       {formik.touched.quantity && formik.errors.quantity && (
                         <p className="mt-2 text-sm text-red-600">{formik.errors.quantity}</p>
                       )}
